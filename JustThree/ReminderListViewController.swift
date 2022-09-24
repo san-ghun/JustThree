@@ -13,7 +13,7 @@ class ReminderListViewController: UICollectionViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
     
-    var dataSource: DataSource!
+    lazy var dataSource: DataSource = makeDataSource()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,23 +26,44 @@ class ReminderListViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
         
-        let cellRegistration = UICollectionView.CellRegistration { (cell: UICollectionViewListCell, indexPath: IndexPath, itemIdentifier: String) in
-            let reminder = Reminder.sampleData[indexPath.item]
-            var contentConfiguration = cell.defaultContentConfiguration()
-            contentConfiguration.text = reminder.title
-            cell.contentConfiguration = contentConfiguration
-        }
-        
-        dataSource = DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
-            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
-        }
-        
-        var snapshot = Snapshot()
-        snapshot.appendSections([0])
-        snapshot.appendItems(Reminder.sampleData.map { $0.title })
-        dataSource.apply(snapshot)
+        applyInitialSnapshots()
         
         collectionView.dataSource = dataSource
+    }
+    
+    private func reminderCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, String> {
+        return .init { cell, indexPath, itemIdentifier in
+            let reminder = Reminder.sampleData[indexPath.item]
+            
+            var contentConfig = cell.defaultContentConfiguration()
+            contentConfig.text = reminder.title
+            contentConfig.textProperties.color = .darkGray
+            cell.contentConfiguration = contentConfig
+            
+            var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
+            backgroundConfig.cornerRadius = 8
+            cell.backgroundConfiguration = backgroundConfig
+        }
+    }
+    
+    private func makeDataSource() -> DataSource {
+//        let cellRegistration = UICollectionView.CellRegistration { (cell: UICollectionViewListCell, indexPath: IndexPath, itemIdentifier: String) in
+//            let reminder = Reminder.sampleData[indexPath.item]
+//            var contentConfiguration = cell.defaultContentConfiguration()
+//            contentConfiguration.text = reminder.title
+//            cell.contentConfiguration = contentConfiguration
+//        }
+        let reminderCellRegistration = self.reminderCellRegistration()
+        return DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
+            return collectionView.dequeueConfiguredReusableCell(using: reminderCellRegistration, for: indexPath, item: itemIdentifier)
+        }
+    }
+    
+    private func applyInitialSnapshots() {
+        var initialSnapshot = Snapshot()
+        initialSnapshot.appendSections([0])
+        initialSnapshot.appendItems(Reminder.sampleData.map { $0.title })
+        dataSource.apply(initialSnapshot, animatingDifferences: false)
     }
 
 }
@@ -80,7 +101,7 @@ extension ReminderListViewController {
     
         return cell
     }
-    /*
+    */
 
     // MARK: UICollectionViewDelegate
 
