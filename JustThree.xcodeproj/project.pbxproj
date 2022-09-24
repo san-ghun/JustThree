@@ -14,6 +14,7 @@
 		BD9EC95A28DE478400B803D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD9EC95828DE478400B803D7 /* LaunchScreen.storyboard */; };
 		BD9EC96328DE553B00B803D7 /* ReminderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9EC96228DE553B00B803D7 /* ReminderListViewController.swift */; };
 		BD9EC96528DE55AD00B803D7 /* SettingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9EC96428DE55AD00B803D7 /* SettingListViewController.swift */; };
+		BD9EC96828DF520400B803D7 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9EC96728DF520400B803D7 /* Reminder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		BD9EC96128DE4B6B00B803D7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BD9EC96228DE553B00B803D7 /* ReminderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderListViewController.swift; sourceTree = "<group>"; };
 		BD9EC96428DE55AD00B803D7 /* SettingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListViewController.swift; sourceTree = "<group>"; };
+		BD9EC96728DF520400B803D7 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 		BD9EC94C28DE478300B803D7 /* JustThree */ = {
 			isa = PBXGroup;
 			children = (
+				BD9EC96628DF51EF00B803D7 /* Models */,
 				BD9EC94D28DE478300B803D7 /* AppDelegate.swift */,
 				BD9EC94F28DE478300B803D7 /* SceneDelegate.swift */,
 				BD9EC95128DE478300B803D7 /* MainTabBarViewController.swift */,
@@ -70,6 +73,14 @@
 				BD9EC96428DE55AD00B803D7 /* SettingListViewController.swift */,
 			);
 			path = JustThree;
+			sourceTree = "<group>";
+		};
+		BD9EC96628DF51EF00B803D7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BD9EC96728DF520400B803D7 /* Reminder.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,6 +156,7 @@
 				BD9EC96528DE55AD00B803D7 /* SettingListViewController.swift in Sources */,
 				BD9EC96328DE553B00B803D7 /* ReminderListViewController.swift in Sources */,
 				BD9EC95228DE478300B803D7 /* MainTabBarViewController.swift in Sources */,
+				BD9EC96828DF520400B803D7 /* Reminder.swift in Sources */,
 				BD9EC94E28DE478300B803D7 /* AppDelegate.swift in Sources */,
 				BD9EC95028DE478300B803D7 /* SceneDelegate.swift in Sources */,
 			);
