@@ -7,22 +7,26 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+//private let reuseIdentifier = "Cell"
 
 class SettingListViewController: UICollectionViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
+        //self.clearsSelectionOnViewWillAppear = false
+        
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
+        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
         // Do any additional setup after loading the view.
     }
+    
+}
 
+/*
+extension SettingListViewController {
     /*
     // MARK: - Navigation
 
@@ -33,6 +37,7 @@ class SettingListViewController: UICollectionViewController {
     }
     */
 
+    /*
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -53,6 +58,7 @@ class SettingListViewController: UICollectionViewController {
     
         return cell
     }
+    */
 
     // MARK: UICollectionViewDelegate
 
@@ -86,3 +92,4 @@ class SettingListViewController: UICollectionViewController {
     */
 
 }
+/*

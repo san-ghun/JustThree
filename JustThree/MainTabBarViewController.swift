@@ -15,7 +15,8 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .clear
+        
         let listLayout = listLayout()
         
         let vc1 = UINavigationController(rootViewController: ReminderListViewController(collectionViewLayout: listLayout))
@@ -35,8 +36,8 @@ class MainTabBarViewController: UITabBarController {
         
         vcArray = [
             vc1,
-            vc2,
-            vc3,
+//            vc2,
+//            vc3,
             vc4,
         ]
         

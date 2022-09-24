@@ -7,22 +7,48 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+//private let reuseIdentifier = "Cell"
 
 class ReminderListViewController: UICollectionViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
+    
+    var dataSource: DataSource!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        //self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+        
+        let cellRegistration = UICollectionView.CellRegistration { (cell: UICollectionViewListCell, indexPath: IndexPath, itemIdentifier: String) in
+            let reminder = Reminder.sampleData[indexPath.item]
+            var contentConfiguration = cell.defaultContentConfiguration()
+            contentConfiguration.text = reminder.title
+            cell.contentConfiguration = contentConfiguration
+        }
+        
+        dataSource = DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        }
+        
+        var snapshot = Snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems(Reminder.sampleData.map { $0.title })
+        dataSource.apply(snapshot)
+        
+        collectionView.dataSource = dataSource
     }
 
+}
+
+/*
+extension ReminderListViewController {
     /*
     // MARK: - Navigation
 
@@ -33,6 +59,7 @@ class ReminderListViewController: UICollectionViewController {
     }
     */
 
+    /*
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -53,6 +80,7 @@ class ReminderListViewController: UICollectionViewController {
     
         return cell
     }
+    /*
 
     // MARK: UICollectionViewDelegate
 
@@ -86,3 +114,4 @@ class ReminderListViewController: UICollectionViewController {
     */
 
 }
+*/
