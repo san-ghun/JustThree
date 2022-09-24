@@ -8,6 +8,8 @@
 import UIKit
 
 class MainTabBarViewController: UITabBarController {
+    
+    var vcArray: [UINavigationController] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +33,14 @@ class MainTabBarViewController: UITabBarController {
         vc3.title = "List 3"
         vc4.title = "Setting"
         
-        setViewControllers([vc1, vc2, vc3, vc4], animated: true)
+        vcArray = [
+            vc1,
+            vc2,
+            vc3,
+            vc4,
+        ]
+        
+        setViewControllers(vcArray, animated: true)
     }
 
     private func listLayout() -> UICollectionViewCompositionalLayout {
