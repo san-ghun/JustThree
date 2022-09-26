@@ -30,14 +30,6 @@ class ReminderListViewController: UICollectionViewController {
         
         collectionView.dataSource = dataSource
     }
-    
-    
-    private func makeDataSource() -> DataSource {
-        let reminderCellRegistration = reminderCellRegistration()
-        return DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Reminder.ID) in
-            return collectionView.dequeueConfiguredReusableCell(using: reminderCellRegistration, for: indexPath, item: itemIdentifier)
-        }
-    }
 
 }
 
