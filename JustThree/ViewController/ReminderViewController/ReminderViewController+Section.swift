@@ -10,9 +10,9 @@ import Foundation
 extension ReminderViewController {
     enum Section: Int, Hashable {
         case view
-        case notes
-        case date
         case title
+        case date
+        case notes
         
         var name: String {
             switch self {
