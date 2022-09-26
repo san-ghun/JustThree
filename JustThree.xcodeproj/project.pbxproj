@@ -52,8 +52,8 @@
 			isa = PBXGroup;
 			children = (
 				BD9EC95128DE478300B803D7 /* MainTabBarViewController.swift */,
-				BD9EC96228DE553B00B803D7 /* ReminderListViewController.swift */,
 				BD9EC96428DE55AD00B803D7 /* SettingListViewController.swift */,
+				BD9EC96228DE553B00B803D7 /* ReminderListViewController.swift */,
 				BD0CAD9328E1D0FC007D2EF7 /* ReminderListViewController+DataSource.swift */,
 			);
 			path = ViewController;

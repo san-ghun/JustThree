@@ -8,12 +8,12 @@
 import UIKit
 
 extension ReminderListViewController {
-    typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, Reminder.ID>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Reminder.ID>
     
     func reminderCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, String> {
-        return .init { cell, indexPath, itemIdentifier in
-            let reminder = Reminder.sampleData[indexPath.item]
+        return .init { (cell: UICollectionViewListCell, indexPath: IndexPath, itemIdentifier: Reminder.ID) in
+            let reminder = self.reminders[indexPath.item]
             
             var contentConfig = cell.defaultContentConfiguration()
             contentConfig.text = reminder.title
