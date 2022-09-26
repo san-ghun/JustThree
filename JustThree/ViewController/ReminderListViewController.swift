@@ -26,7 +26,7 @@ class ReminderListViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
         
-        applyInitialSnapshots()
+        updateSnapshot()
         
         collectionView.dataSource = dataSource
     }
@@ -37,13 +37,6 @@ class ReminderListViewController: UICollectionViewController {
         return DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Reminder.ID) in
             return collectionView.dequeueConfiguredReusableCell(using: reminderCellRegistration, for: indexPath, item: itemIdentifier)
         }
-    }
-    
-    private func applyInitialSnapshots() {
-        var initialSnapshot = Snapshot()
-        initialSnapshot.appendSections([0])
-        initialSnapshot.appendItems(reminders.map { $0.id })
-        dataSource.apply(initialSnapshot, animatingDifferences: false)
     }
 
 }
