@@ -17,7 +17,7 @@ extension ReminderListViewController {
             
             var contentConfig = cell.defaultContentConfiguration()
             contentConfig.text = reminder.title
-            contentConfig.textProperties.color = .darkGray
+//            contentConfig.textProperties.color = .darkGray
             contentConfig.secondaryText = reminder.dueDate.dayAndTimeText
             contentConfig.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .caption1)
             cell.contentConfiguration = contentConfig

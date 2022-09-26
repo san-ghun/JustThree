@@ -32,6 +32,8 @@ class ReminderViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = NSLocalizedString("Reminder", comment: "Reminder view controller title")
+        
         updateSnapshot()
     }
     

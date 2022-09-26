@@ -15,7 +15,8 @@ class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        view.backgroundColor = .clear
+//        view.backgroundColor = .clear
+        view.backgroundColor = .justThreeNavigationBackground
         
         let listLayout = listLayout()
         
