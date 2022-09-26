@@ -11,6 +11,8 @@ import UIKit
 
 class ReminderViewController: UICollectionViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<Int, Row>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Row>
+
     
     var reminder: Reminder
     private lazy var dataSource: DataSource = makeDataSource()
@@ -25,6 +27,12 @@ class ReminderViewController: UICollectionViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        updateSnapshot()
     }
     
     func cellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, Row> {
@@ -44,6 +52,13 @@ class ReminderViewController: UICollectionViewController {
         return DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Row) in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         }
+    }
+    
+    private func updateSnapshot() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems([.viewTitle, .viewDate, .viewTime, .viewNotes], toSection: 0)
+        dataSource.apply(snapshot)
     }
     
     func text(for row: Row) -> String? {
