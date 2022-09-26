@@ -30,10 +30,15 @@ class ReminderListViewController: UICollectionViewController {
         
         collectionView.dataSource = dataSource
     }
+    
+    func showDetail(for id: Reminder.ID) {
+        let reminder = reminder(for: id)
+        let viewController = ReminderViewController(reminder: reminder)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 
 }
 
-/*
 extension ReminderListViewController {
     /*
     // MARK: - Navigation
@@ -77,12 +82,12 @@ extension ReminderListViewController {
     }
     */
 
-    /*
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
+        let id = reminders[indexPath.item].id
+        showDetail(for: id)
+        return false
     }
-    */
 
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
@@ -100,4 +105,3 @@ extension ReminderListViewController {
     */
 
 }
-*/
