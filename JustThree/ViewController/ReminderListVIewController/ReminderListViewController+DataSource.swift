@@ -11,13 +11,13 @@ extension ReminderListViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, Reminder.ID>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Reminder.ID>
     
-    func reminderCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, String> {
+    private func reminderCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, Reminder.ID> {
         return .init { (cell: UICollectionViewListCell, indexPath: IndexPath, id: Reminder.ID) in
             let reminder = self.reminder(for: id)
             
             var contentConfig = cell.defaultContentConfiguration()
             contentConfig.text = reminder.title
-            contentConfig.textProperties.color = .darkGray
+//            contentConfig.textProperties.color = .darkGray
             contentConfig.secondaryText = reminder.dueDate.dayAndTimeText
             contentConfig.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .caption1)
             cell.contentConfiguration = contentConfig
@@ -30,6 +30,13 @@ extension ReminderListViewController {
             backgroundConfig.backgroundColor = .justThreeListCellBackground
             backgroundConfig.cornerRadius = 8
             cell.backgroundConfiguration = backgroundConfig
+        }
+    }
+    
+    func makeDataSource() -> DataSource {
+        let reminderCellRegistration = reminderCellRegistration()
+        return DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Reminder.ID) in
+            return collectionView.dequeueConfiguredReusableCell(using: reminderCellRegistration, for: indexPath, item: itemIdentifier)
         }
     }
     
