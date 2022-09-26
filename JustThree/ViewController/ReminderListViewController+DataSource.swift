@@ -22,10 +22,23 @@ extension ReminderListViewController {
             contentConfig.secondaryTextProperties.font = UIFont.preferredFont(forTextStyle: .caption1)
             cell.contentConfiguration = contentConfig
             
+            var doneButtonConfig = self.doneButtonConfiguration(for: reminder)
+            doneButtonConfig.tintColor = .justThreeListCellDoneButtonTint
+            cell.accessories = [ .customView(configuration: doneButtonConfig), .disclosureIndicator(displayed: .always) ]
+            
             var backgroundConfig = UIBackgroundConfiguration.listGroupedCell()
             backgroundConfig.backgroundColor = .justThreeListCellBackground
             backgroundConfig.cornerRadius = 8
             cell.backgroundConfiguration = backgroundConfig
         }
+    }
+    
+    private func doneButtonConfiguration(for reminder: Reminder) -> UICellAccessory.CustomViewConfiguration {
+        let symbolName = reminder.isComplete ? "circle.fill" : "circle"
+        let symbolConfiguration = UIImage.SymbolConfiguration(textStyle: .title1)
+        let image = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        return UICellAccessory.CustomViewConfiguration(customView: button, placement: .leading(displayed: .always))
     }
 }
