@@ -37,7 +37,13 @@ class ReminderViewController: UICollectionViewController {
         navigationItem.title = NSLocalizedString("Reminder", comment: "Reminder view controller title")
         navigationItem.rightBarButtonItem = editButtonItem
         
+        tabBarController?.tabBar.isHidden.toggle()
+        
         updateSnapshotForViewing()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden.toggle()
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
