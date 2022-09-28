@@ -28,7 +28,7 @@ extension ReminderListViewController {
             
             var backgroundConfig = UIBackgroundConfiguration.listGroupedCell()
             backgroundConfig.backgroundColor = .justThreeListCellBackground
-            backgroundConfig.cornerRadius = 8
+//            backgroundConfig.cornerRadius = 8
             cell.backgroundConfiguration = backgroundConfig
         }
     }

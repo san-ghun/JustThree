@@ -13,12 +13,19 @@ class ReminderViewController: UICollectionViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
 
-    
-    var reminder: Reminder
+    var reminder: Reminder {
+        didSet {
+            onChange(reminder)
+        }
+    }
+    var workingReminder: Reminder
+    var onChange: (Reminder)->Void
     private lazy var dataSource: DataSource = makeDataSource()
     
-    init(reminder: Reminder) {
+    init(reminder: Reminder, onChange: @escaping (Reminder)->Void) {
         self.reminder = reminder
+        self.workingReminder = reminder
+        self.onChange = onChange
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         listConfiguration.showsSeparators = false
         listConfiguration.headerMode = .firstItemInSection
@@ -36,16 +43,22 @@ class ReminderViewController: UICollectionViewController {
         navigationItem.title = NSLocalizedString("Reminder", comment: "Reminder view controller title")
         navigationItem.rightBarButtonItem = editButtonItem
         
+        tabBarController?.tabBar.isHidden.toggle()
+        
         updateSnapshotForViewing()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden.toggle()
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         if editing {
-            updateSnapshotForEditing()
+            prepareForEditing()
         }
         else {
-            updateSnapshotForViewing()
+            prepareForViewing()
         }
     }
     
@@ -78,6 +91,16 @@ class ReminderViewController: UICollectionViewController {
         }
     }
     
+    @objc func didCancelEdit() {
+        workingReminder = reminder
+        setEditing(false, animated: true)
+    }
+    
+    private func prepareForEditing() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didCancelEdit))
+        updateSnapshotForEditing()
+    }
+    
     private func updateSnapshotForEditing() {
         var snapshot = Snapshot()
         snapshot.appendSections([.title, .date, .notes])
@@ -85,6 +108,14 @@ class ReminderViewController: UICollectionViewController {
         snapshot.appendItems([.header(Section.date.name), .editDate(reminder.dueDate)], toSection: .date)
         snapshot.appendItems([.header(Section.notes.name), .editText(reminder.notes)], toSection: .notes)
         dataSource.apply(snapshot)
+    }
+    
+    private func prepareForViewing() {
+        navigationItem.leftBarButtonItem = nil
+        if workingReminder != reminder {
+            reminder = workingReminder
+        }
+        updateSnapshotForViewing()
     }
     
     private func updateSnapshotForViewing() {
