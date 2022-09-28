@@ -44,6 +44,9 @@ extension ReminderViewController {
     func notesConfiguration(for cell: UICollectionViewListCell, with notes: String?) -> TextViewContentView.Configuration {
         var contentConfig = cell.textViewConfiguration()
         contentConfig.text = notes
+        contentConfig.onChange = { [weak self] notes in
+            self?.workingReminder.notes = notes
+        }
         return contentConfig
     }
     
