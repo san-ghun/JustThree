@@ -26,6 +26,10 @@ class ReminderListViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
         
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
+        addButton.accessibilityLabel = NSLocalizedString("Add reminder", comment: "Add button accessibility label")
+        navigationItem.rightBarButtonItem = addButton
+        
         updateSnapshot()
         
         collectionView.dataSource = dataSource
