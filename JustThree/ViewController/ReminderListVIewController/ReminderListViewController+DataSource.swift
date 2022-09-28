@@ -11,6 +11,13 @@ extension ReminderListViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, Reminder.ID>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Reminder.ID>
     
+    var reminderCompletedValue: String {
+        NSLocalizedString("Completed", comment: "Reminder completed value")
+    }
+    var reminderNotCompletedValue: String {
+        NSLocalizedString("Not completed", comment: "Reminder not completed value")
+    }
+    
     private func reminderCellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, Reminder.ID> {
         return .init { (cell: UICollectionViewListCell, indexPath: IndexPath, id: Reminder.ID) in
             let reminder = self.reminder(for: id)
@@ -24,6 +31,8 @@ extension ReminderListViewController {
             
             var doneButtonConfig = self.doneButtonConfiguration(for: reminder)
             doneButtonConfig.tintColor = .justThreeListCellDoneButtonTint
+            cell.accessibilityCustomActions = [ self.doneButtonAccessibilityAction(for: reminder) ]
+            cell.accessibilityValue = reminder.isComplete ? self.reminderCompletedValue : self.reminderNotCompletedValue
             cell.accessories = [ .customView(configuration: doneButtonConfig), .disclosureIndicator(displayed: .always) ]
             
             var backgroundConfig = UIBackgroundConfiguration.listGroupedCell()
@@ -56,6 +65,15 @@ extension ReminderListViewController {
         reminder.isComplete.toggle()
         update(reminder, with: id)
         updateSnapshot(reloading: [id])
+    }
+    
+    private func doneButtonAccessibilityAction(for reminder: Reminder) -> UIAccessibilityCustomAction {
+        let name = NSLocalizedString("Toggle completion", comment: "Reminder done button accessibility label")
+        let action = UIAccessibilityCustomAction(name: name) { [weak self] action in
+            self?.completeReminder(with: reminder.id)
+            return true
+        }
+        return action
     }
     
     private func doneButtonConfiguration(for reminder: Reminder) -> UICellAccessory.CustomViewConfiguration {
