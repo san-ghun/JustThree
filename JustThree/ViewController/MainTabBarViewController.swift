@@ -18,7 +18,7 @@ class MainTabBarViewController: UITabBarController {
         view.backgroundColor = .clear
 //        view.backgroundColor = .justThreeGradientFutureBegin
         
-        let listLayout = listLayout()
+        let listLayout = defaultListLayout()
         
         let vc1 = UINavigationController(rootViewController: ReminderListViewController(collectionViewLayout: listLayout))
         let vc2 = UINavigationController(rootViewController: ReminderListViewController(collectionViewLayout: listLayout))
@@ -45,11 +45,11 @@ class MainTabBarViewController: UITabBarController {
         setViewControllers(vcArray, animated: true)
     }
 
-    private func listLayout() -> UICollectionViewCompositionalLayout {
+    private func defaultListLayout() -> UICollectionViewCompositionalLayout {
         
         // Create a section in a list layout
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
-        listConfiguration.showsSeparators = false
+        listConfiguration.showsSeparators = true
         listConfiguration.backgroundColor = .clear
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
