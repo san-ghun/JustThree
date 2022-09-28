@@ -56,7 +56,7 @@ extension ReminderListViewController {
         if !ids.isEmpty {
             snapshot.reloadItems(ids)
         }
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     
@@ -89,6 +89,11 @@ extension ReminderListViewController {
     
     func add(_ reminder: Reminder) {
         reminders.append(reminder)
+    }
+    
+    func deleteReminder(with id: Reminder.ID) {
+        let index = reminders.indexOfReminder(with: id)
+        reminders.remove(at: index)
     }
     
     func reminder(for id: Reminder.ID) -> Reminder {
