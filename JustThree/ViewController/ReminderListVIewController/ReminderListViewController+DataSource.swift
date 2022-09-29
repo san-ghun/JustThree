@@ -42,11 +42,24 @@ extension ReminderListViewController {
         }
     }
     
+    private func reminderHeaderRegistration() -> UICollectionView.SupplementaryRegistration<ProgressHeaderView> {
+        return .init(elementKind: ProgressHeaderView.elementKind) { (progressView: ProgressHeaderView, elementKind: String, indexPath: IndexPath) in
+            self.headerView = progressView
+        }
+    }
+    
     func makeDataSource() -> DataSource {
         let reminderCellRegistration = reminderCellRegistration()
-        return DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Reminder.ID) in
+        let reminderHeaderRegistration = reminderHeaderRegistration()
+        
+        var dataSource = DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Reminder.ID) in
             return collectionView.dequeueConfiguredReusableCell(using: reminderCellRegistration, for: indexPath, item: itemIdentifier)
         }
+        dataSource.supplementaryViewProvider = { supplementaryView, elementKind, indexPath in
+            return self.collectionView.dequeueConfiguredReusableSupplementary(using: reminderHeaderRegistration, for: indexPath)
+        }
+        
+        return dataSource
     }
     
     func updateSnapshot(reloading idsChanged: [Reminder.ID] = []) {
