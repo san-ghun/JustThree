@@ -13,11 +13,14 @@ class ProgressHeaderView: UICollectionReusableView {
     var progress: CGFloat = 0
     
     private let containerView = UIView(frame: .zero)
-    private let progressView = UIView(frame: .zero)
+    private var progressView: ProgressAnimationView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+//        progressView = ProgressAnimationView(frame: CGRect(origin: .zero, size: bounds.size))
+        progressView = ProgressAnimationView(frame: CGRect(x: 0.0, y: 0.0, width: bounds.width, height: bounds.width))
         prepareSubviews()
+        progressView.setupProgress(progressView.progress)
     }
     
     required init?(coder: NSCoder) {
