@@ -7,30 +7,32 @@
 
 import UIKit
 
-//private let reuseIdentifier = "Cell"
-
 class ReminderListViewController: UICollectionViewController {
     
+    lazy var dataSource: DataSource = makeDataSource()
     var reminders: [Reminder] = Reminder.sampleData
     
-    lazy var dataSource: DataSource = makeDataSource()
+    var filteredReminders: [Reminder] {
+        return reminders.filter { listStyle.shouldInclude(date: $0.dueDate) }.sorted { $0.dueDate < $1.dueDate }
+    }
+    var listStyle: ReminderListStyle = .today
+    let listStyleSegmentedControl = UISegmentedControl(items: [
+        ReminderListStyle.today.name, ReminderListStyle.future.name, ReminderListStyle.all.name
+    ])
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        //self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
         let listLayout = listLayout()
         collectionView.collectionViewLayout = listLayout
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
         addButton.accessibilityLabel = NSLocalizedString("Add reminder", comment: "Add button accessibility label")
         navigationItem.rightBarButtonItem = addButton
+        
+        listStyleSegmentedControl.selectedSegmentIndex = listStyle.rawValue
+        listStyleSegmentedControl.addTarget(self, action: #selector(didChangeListStyle(_:)), for: .valueChanged)
+        navigationItem.titleView = listStyleSegmentedControl
         
         updateSnapshot()
         
@@ -56,7 +58,7 @@ class ReminderListViewController: UICollectionViewController {
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
     
-    func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+    private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
         guard let indexPath = indexPath, let id = dataSource.itemIdentifier(for: indexPath) else { return nil }
         let deleteActionTitle = NSLocalizedString("Delete", comment: "Delete action title")
         let deleteAction = UIContextualAction(style: .destructive, title: deleteActionTitle) { [weak self] _, _, completion in
@@ -70,39 +72,7 @@ class ReminderListViewController: UICollectionViewController {
 }
 
 extension ReminderListViewController {
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    /*
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
-        // Configure the cell
-    
-        return cell
-    }
-    */
-
     // MARK: UICollectionViewDelegate
 
     /*
@@ -114,7 +84,7 @@ extension ReminderListViewController {
 
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let id = reminders[indexPath.item].id
+        let id = filteredReminders[indexPath.item].id
         showDetail(for: id)
         return false
     }
