@@ -29,19 +29,19 @@ extension UIColor {
     }
     
     static var justThreeGradientFutureBegin: UIColor {
-            UIColor(named: "JustThreeGradientFutureBegin") ?? .systemFill
+        UIColor(named: "JustThreeGradientFutureBegin") ?? .systemFill
     }
     
     static var justThreeGradientFutureEnd: UIColor {
-            UIColor(named: "JustThreeGradientFutureEnd") ?? .quaternarySystemFill
+        UIColor(named: "JustThreeGradientFutureEnd") ?? .quaternarySystemFill
     }
     
-    static var justThreeGradientJustThreeBegin: UIColor {
-            UIColor(named: "JustThreeGradientJustThreeBegin") ?? .systemFill
+    static var justThreeGradientTodayBegin: UIColor {
+        UIColor(named: "JustThreeGradientTodayBegin") ?? .systemFill
     }
     
-    static var justThreeGradientJustThreeEnd: UIColor {
-            UIColor(named: "JustThreeGradientJustThreeEnd") ?? .quaternarySystemFill
+    static var justThreeGradientTodayEnd: UIColor {
+        UIColor(named: "JustThreeGradientTodayEnd") ?? .quaternarySystemFill
     }
     
     static var justThreeNavigationBackground: UIColor {

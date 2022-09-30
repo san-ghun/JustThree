@@ -34,7 +34,7 @@ class ReminderListViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.backgroundColor = .justThreeGradientFutureBegin
+        collectionView.backgroundColor = .secondarySystemBackground
 
         let listLayout = listLayout()
         collectionView.collectionViewLayout = listLayout
@@ -50,6 +50,19 @@ class ReminderListViewController: UICollectionViewController {
         updateSnapshot()
         
         collectionView.dataSource = dataSource
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshBackground()
+    }
+    
+    func refreshBackground() {
+        collectionView.backgroundView = nil
+        let backgroundView = UIView()
+        let gradientLayer = CAGradientLayer.gradientLayer(for: listStyle, in: collectionView.frame)
+        backgroundView.layer.addSublayer(gradientLayer)
+        collectionView.backgroundView = backgroundView
     }
     
     func showDetail(for id: Reminder.ID) {
