@@ -52,7 +52,7 @@ extension ReminderListViewController {
         let reminderCellRegistration = reminderCellRegistration()
         let reminderHeaderRegistration = reminderHeaderRegistration()
         
-        var dataSource = DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Reminder.ID) in
+        let dataSource = DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: Reminder.ID) in
             return collectionView.dequeueConfiguredReusableCell(using: reminderCellRegistration, for: indexPath, item: itemIdentifier)
         }
         dataSource.supplementaryViewProvider = { supplementaryView, elementKind, indexPath in
@@ -71,6 +71,7 @@ extension ReminderListViewController {
             snapshot.reloadItems(ids)
         }
         dataSource.apply(snapshot, animatingDifferences: true)
+        headerView?.progress = progress
     }
     
     

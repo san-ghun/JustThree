@@ -10,7 +10,11 @@ import UIKit
 class ProgressHeaderView: UICollectionReusableView {
     static var elementKind: String { UICollectionView.elementKindSectionHeader }
     
-    var progress: CGFloat = 0
+    var progress: CGFloat = 0 {
+        didSet {
+            progressView.setupProgress(progress)
+        }
+    }
     
     private let containerView = UIView(frame: .zero)
     private var progressView: ProgressAnimationView!
