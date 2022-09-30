@@ -17,11 +17,24 @@ class ReminderListViewController: UICollectionViewController {
     }
     var listStyle: ReminderListStyle = .today
     let listStyleSegmentedControl = UISegmentedControl(items: [
-        ReminderListStyle.today.name, ReminderListStyle.future.name, ReminderListStyle.all.name
+        ReminderListStyle.today.name,
+        ReminderListStyle.future.name,
+        ReminderListStyle.all.name
     ])
+    var headerView: ProgressHeaderView?
+    var progress: CGFloat {
+        let chunkSize = 1.0 / CGFloat(filteredReminders.count)
+        let progress = filteredReminders.reduce(0.0) {
+            let chunk = $1.isComplete ? chunkSize : 0
+            return $0 + chunk
+        }
+        return progress
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.backgroundColor = .justThreeGradientFutureBegin
 
         let listLayout = listLayout()
         collectionView.collectionViewLayout = listLayout
@@ -52,6 +65,7 @@ class ReminderListViewController: UICollectionViewController {
         
         // Create a section in a list layout
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+        listConfiguration.headerMode = .supplementary
         listConfiguration.showsSeparators = false
         listConfiguration.trailingSwipeActionsConfigurationProvider = makeSwipeActions
         listConfiguration.backgroundColor = .clear
@@ -89,6 +103,11 @@ extension ReminderListViewController {
         return false
     }
 
+    override func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        guard elementKind == ProgressHeaderView.elementKind, let progressHeaderView = view as? ProgressHeaderView else { return }
+        progressHeaderView.progress = progress
+    }
+    
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
