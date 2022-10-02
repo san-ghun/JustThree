@@ -13,7 +13,13 @@ class ReminderListViewController: UICollectionViewController {
     var reminders: [Reminder] = Reminder.sampleData
     
     var filteredReminders: [Reminder] {
-        return reminders.filter { listStyle.shouldInclude(date: $0.dueDate) }.sorted { $0.dueDate < $1.dueDate }
+        let filtered = reminders.filter { listStyle.shouldInclude(date: $0.dueDate) }.sorted { $0.dueDate < $1.dueDate }
+        if listStyle == .today {
+            return Array(filtered.prefix(3))
+        }
+        else {
+            return filtered
+        }
     }
     var listStyle: ReminderListStyle = .today
     let listStyleSegmentedControl = UISegmentedControl(items: [
@@ -39,10 +45,6 @@ class ReminderListViewController: UICollectionViewController {
         let listLayout = listLayout()
         collectionView.collectionViewLayout = listLayout
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
-        addButton.accessibilityLabel = NSLocalizedString("Add reminder", comment: "Add button accessibility label")
-        navigationItem.rightBarButtonItem = addButton
-        
         listStyleSegmentedControl.selectedSegmentIndex = listStyle.rawValue
         listStyleSegmentedControl.addTarget(self, action: #selector(didChangeListStyle(_:)), for: .valueChanged)
         navigationItem.titleView = listStyleSegmentedControl
@@ -55,6 +57,19 @@ class ReminderListViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         refreshBackground()
+        refreshAddButton()
+    }
+    
+    func refreshAddButton() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didPressAddButton(_:)))
+        addButton.accessibilityLabel = NSLocalizedString("Add reminder", comment: "Add button accessibility label")
+        
+        if listStyle == .today && filteredReminders.count > 2 {
+            navigationItem.rightBarButtonItem = nil
+        }
+        else {
+            navigationItem.rightBarButtonItem = addButton
+        }
     }
     
     func refreshBackground() {

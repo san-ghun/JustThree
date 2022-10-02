@@ -72,6 +72,7 @@ extension ReminderListViewController {
         }
         dataSource.apply(snapshot, animatingDifferences: true)
         headerView?.progress = progress
+        refreshAddButton()
     }
     
     
