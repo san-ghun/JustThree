@@ -98,7 +98,7 @@ class ProgressAnimationView: UIView {
         progress = pr
         
 //        let top: CGFloat = 1 * bounds.size.height / 2
-        let top: CGFloat = pr > 0 ? (pr * bounds.size.height - (bounds.size.height * 0.12)) : (bounds.size.height * 0.1)
+        let top: CGFloat = pr > 0 ? (pr * bounds.size.height - (bounds.size.height * 0.12)) : (bounds.size.height * 0.025)
         firstLayer.setValue(bounds.width - top, forKeyPath: "position.y")
         secondLayer.setValue(bounds.width - top, forKeyPath: "position.y")
         
