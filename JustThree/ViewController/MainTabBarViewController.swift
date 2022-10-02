@@ -30,15 +30,15 @@ class MainTabBarViewController: UITabBarController {
         vc3.tabBarItem.image = UIImage(systemName: "die.face.3.fill")
         vc4.tabBarItem.image = UIImage(systemName: "gearshape.fill")
         
-        vc1.title = "List 1"
-        vc2.title = "List 2"
-        vc3.title = "List 3"
+//        vc1.title = "Just"
+//        vc2.title = "Three"
+        vc3.title = "JustThree"
         vc4.title = "Setting"
         
         vcArray = [
-            vc1,
+//            vc1,
 //            vc2,
-//            vc3,
+            vc3,
             vc4,
         ]
         
