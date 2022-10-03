@@ -10,7 +10,12 @@ import UIKit
 class ReminderListViewController: UICollectionViewController {
     
     lazy var dataSource: DataSource = makeDataSource()
-    var reminders: [Reminder] = []
+    var reminders: [Reminder] = [] {
+        didSet {
+            Reminders.shared.reminders = reminders
+            Reminders.shared.save()
+        }
+    }
     
     var filteredReminders: [Reminder] {
         let filtered = reminders.filter { listStyle.shouldInclude(date: $0.dueDate) }.sorted { $0.dueDate < $1.dueDate }
@@ -39,6 +44,8 @@ class ReminderListViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        reminders = Reminders.shared.reminders
         
         collectionView.backgroundColor = .secondarySystemBackground
 

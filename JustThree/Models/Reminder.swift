@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Reminder: Equatable, Identifiable {
+struct Reminder: Equatable, Identifiable, Codable {
     var id: String = UUID().uuidString
     var title: String
     var dueDate: Date
@@ -21,6 +21,29 @@ extension Array where Element == Reminder {
             fatalError()
         }
         return index
+    }
+}
+
+class Reminders {
+    static let shared: Reminders = Reminders()
+    let saveKey = "com.sanghun.JustThree.SavedData"
+    
+    var reminders: [Reminder]
+    
+    init() {
+        if let data = UserDefaults.standard.data(forKey: saveKey) {
+            if let decoded = try? JSONDecoder().decode([Reminder].self, from: data) {
+                reminders = decoded
+                return
+            }
+        }
+        reminders = []
+    }
+    
+    func save() {
+        if let encoded = try? JSONEncoder().encode(reminders) {
+            UserDefaults.standard.set(encoded, forKey: saveKey)
+        }
     }
 }
 
