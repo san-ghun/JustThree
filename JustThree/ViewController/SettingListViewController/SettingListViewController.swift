@@ -7,25 +7,38 @@
 
 import UIKit
 
-//private let reuseIdentifier = "Cell"
-
 class SettingListViewController: UICollectionViewController {
+    
+    lazy var dataSource: DataSource = makeDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Uncomment the following line to preserve selection between presentations
-        //self.clearsSelectionOnViewWillAppear = false
-        
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
         // Do any additional setup after loading the view.
+        collectionView.backgroundColor = .systemGroupedBackground
+        
+        let listLayout = listLayout()
+        collectionView.collectionViewLayout = listLayout
+        
+        navigationItem.title = NSLocalizedString("Settings", comment: "Settings view controller title")
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        updateSnapshot()
+        
+        collectionView.dataSource = dataSource
+    }
+    
+    private func listLayout() -> UICollectionViewCompositionalLayout {
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+        listConfiguration.showsSeparators = true
+        listConfiguration.headerMode = .firstItemInSection
+        listConfiguration.backgroundColor = .clear
+        return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
     
 }
 
-/*
+
 extension SettingListViewController {
     /*
     // MARK: - Navigation
@@ -69,13 +82,38 @@ extension SettingListViewController {
     }
     */
 
-    /*
+    
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
+        print(indexPath.description)
+        
+        if indexPath.description == "[0, 2]" {
+            let support = "https://san-ghun.github.io/JustThree/"
+            if let url = URL(string: support) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        else if indexPath.description == "[0, 3]" {
+            let repository = "https://github.com/san-ghun/JustThree/"
+            if let url = URL(string: repository) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        else if indexPath.description == "[1, 1]" {
+            let email = "po4865@gmail.com"
+            if let url = URL(string: "mailto:\(email)") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        return false
+    }
+    
+    /*
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.description)
     }
     */
-
+    
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
@@ -92,4 +130,3 @@ extension SettingListViewController {
     */
 
 }
-*/
