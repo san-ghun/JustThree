@@ -20,13 +20,13 @@ class MainTabBarViewController: UITabBarController {
         
         let listLayout = defaultListLayout()
         
-        let vc1 = UINavigationController(rootViewController: ReminderListViewController(collectionViewLayout: listLayout))
-        let vc2 = UINavigationController(rootViewController: ReminderListViewController(collectionViewLayout: listLayout))
+//        let vc1 = UINavigationController(rootViewController: ReminderListViewController(collectionViewLayout: listLayout))
+//        let vc2 = UINavigationController(rootViewController: ReminderListViewController(collectionViewLayout: listLayout))
         let vc3 = UINavigationController(rootViewController: ReminderListViewController(collectionViewLayout: listLayout))
         let vc4 = UINavigationController(rootViewController: SettingListViewController(collectionViewLayout: listLayout))
         
-        vc1.tabBarItem.image = UIImage(systemName: "die.face.1.fill")
-        vc2.tabBarItem.image = UIImage(systemName: "die.face.2.fill")
+//        vc1.tabBarItem.image = UIImage(systemName: "die.face.1.fill")
+//        vc2.tabBarItem.image = UIImage(systemName: "die.face.2.fill")
         vc3.tabBarItem.image = UIImage(systemName: "die.face.3.fill")
         vc4.tabBarItem.image = UIImage(systemName: "gearshape.fill")
         
