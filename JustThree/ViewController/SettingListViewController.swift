@@ -9,7 +9,21 @@ import UIKit
 
 //private let reuseIdentifier = "Cell"
 
+struct SettingsOption {
+    let title: String
+    let iconName: String?
+    let iconColor: UIColor
+    let iconBackgroundColor: UIColor
+    let handler: (()->Void)
+}
+
 class SettingListViewController: UICollectionViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<Int, String>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, String>
+    
+    lazy var dataSource: DataSource = makeDataSource()
+    var models: [SettingsOption] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +35,88 @@ class SettingListViewController: UICollectionViewController {
         //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         // Do any additional setup after loading the view.
+        collectionView.backgroundColor = .secondarySystemBackground
+        
+        configureModels()
+        
+        let listLayout = listLayout()
+        collectionView.collectionViewLayout = listLayout
+        
+        navigationItem.title = NSLocalizedString("Settings", comment: "Settings view controller title")
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        updateSnapshot()
+        
+        collectionView.dataSource = dataSource
+    }
+    
+    func configureModels() {
+        models.append(
+            contentsOf: [
+                SettingsOption(title: "ABC", iconName: "gear", iconColor: .white,  iconBackgroundColor: .systemGray) {},
+                SettingsOption(title: "Abc", iconName: "house", iconColor: .white,  iconBackgroundColor: .systemGray2) {},
+                SettingsOption(title: "aBc", iconName: "circle", iconColor: .white,  iconBackgroundColor: .systemGray3) {},
+                SettingsOption(title: "abC", iconName: "circle.fill", iconColor: .white,  iconBackgroundColor: .systemGray4) {},
+            ]
+        )
+        models.append(
+            contentsOf: [
+                SettingsOption(title: "abc", iconName: "gear", iconColor: .white,  iconBackgroundColor: .systemGray) {},
+                SettingsOption(title: "aBC", iconName: "house", iconColor: .white,  iconBackgroundColor: .systemGray2) {},
+                SettingsOption(title: "AbC", iconName: "circle", iconColor: .white,  iconBackgroundColor: .systemGray3) {},
+                SettingsOption(title: "ABc", iconName: "circle.fill", iconColor: .white,  iconBackgroundColor: .systemGray4) {},
+            ]
+        )
+    }
+    
+    private func cellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, String> {
+        return .init { (cell: UICollectionViewListCell, indexPath: IndexPath, itemIdentifier: String) in
+            let model = self.models[indexPath.item]
+            
+            var contentConfiguration = cell.defaultContentConfiguration()
+            contentConfiguration.text = model.title
+            cell.contentConfiguration = contentConfiguration
+            
+            let iconConfiguration = self.iconConfiguration(for: model)
+            cell.accessories = [ .customView(configuration: iconConfiguration), .disclosureIndicator(displayed: .always) ]
+        }
+    }
+    
+    func makeDataSource() -> DataSource {
+        let cellRegistration = cellRegistration()
+        let dataSource = DataSource(collectionView: collectionView) { (collectionView: UICollectionView, indexPath: IndexPath, itemIdentifier: String) in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+        }
+        
+        return dataSource
+    }
+    
+    func updateSnapshot() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems(models.map { $0.title })
+        dataSource.apply(snapshot)
+    }
+    
+    func iconConfiguration(for settingsOption: SettingsOption) -> UICellAccessory.CustomViewConfiguration {
+        let imageName = settingsOption.iconName ?? "gear"
+        let imageConfiguration = UIImage.SymbolConfiguration(textStyle: .title1, scale: .default)
+        let image = UIImage(systemName: imageName, withConfiguration: imageConfiguration)
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        button.tintColor = .white//settingsOption.iconColor
+        button.backgroundColor = .systemGray//settingsOption.iconBackgroundColor
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 10
+        button.layer.masksToBounds = true
+        return UICellAccessory.CustomViewConfiguration(customView: button, placement: .leading(displayed: .always))
+    }
+    
+    private func listLayout() -> UICollectionViewCompositionalLayout {
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+        listConfiguration.showsSeparators = true
+        listConfiguration.backgroundColor = .clear
+        return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
     
 }
