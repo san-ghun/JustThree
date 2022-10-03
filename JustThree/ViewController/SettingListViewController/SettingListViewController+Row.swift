@@ -22,6 +22,8 @@ extension SettingListViewController {
         case description
         case feedback
         case support
+        case repository
+        case version
         
         //MoreInfo
         case contact
@@ -37,6 +39,8 @@ extension SettingListViewController {
             case .description: return "Description"
             case .feedback: return "Feedback"
             case .support: return "Support"
+            case .repository: return "GitHub"
+            case .version: return "Version"
                 
             case .contact: return "Contact"
             case .buymeacoffee: return "Buy me a coffee"
@@ -55,6 +59,8 @@ extension SettingListViewController {
             case .description: return "doc.plaintext"
             case .feedback: return "square.and.pencil"
             case .support: return "questionmark.circle"
+            case .repository: return "externaldrive"
+            case .version: return "v.square"
                 
             case .contact: return "mail"
             case .buymeacoffee: return "cup.and.saucer.fill"

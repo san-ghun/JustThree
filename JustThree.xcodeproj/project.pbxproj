@@ -24,6 +24,7 @@
 		BD8321B728EB501900CA74A1 /* SettingListViewController+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8321B628EB501900CA74A1 /* SettingListViewController+Section.swift */; };
 		BD8321BB28EB581800CA74A1 /* SettingListViewController+Row.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8321BA28EB581800CA74A1 /* SettingListViewController+Row.swift */; };
 		BD8321BD28EB6F9400CA74A1 /* SettingListViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8321BC28EB6F9400CA74A1 /* SettingListViewController+DataSource.swift */; };
+		BD8321BF28EB745400CA74A1 /* SettingListViewController+CellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8321BE28EB745400CA74A1 /* SettingListViewController+CellConfiguration.swift */; };
 		BD8DBE3528E4EBCD00718F85 /* ReminderViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8DBE3428E4EBCC00718F85 /* ReminderViewController+DataSource.swift */; };
 		BD8DBE3728E5E6C400718F85 /* ReminderListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8DBE3628E5E6C400718F85 /* ReminderListStyle.swift */; };
 		BD8DBE3928E617C200718F85 /* ProgressHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8DBE3828E617C200718F85 /* ProgressHeaderView.swift */; };
@@ -57,6 +58,7 @@
 		BD8321B628EB501900CA74A1 /* SettingListViewController+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingListViewController+Section.swift"; sourceTree = "<group>"; };
 		BD8321BA28EB581800CA74A1 /* SettingListViewController+Row.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingListViewController+Row.swift"; sourceTree = "<group>"; };
 		BD8321BC28EB6F9400CA74A1 /* SettingListViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingListViewController+DataSource.swift"; sourceTree = "<group>"; };
+		BD8321BE28EB745400CA74A1 /* SettingListViewController+CellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingListViewController+CellConfiguration.swift"; sourceTree = "<group>"; };
 		BD8DBE3428E4EBCC00718F85 /* ReminderViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReminderViewController+DataSource.swift"; sourceTree = "<group>"; };
 		BD8DBE3628E5E6C400718F85 /* ReminderListStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderListStyle.swift; sourceTree = "<group>"; };
 		BD8DBE3828E617C200718F85 /* ProgressHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHeaderView.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				BD8321BC28EB6F9400CA74A1 /* SettingListViewController+DataSource.swift */,
 				BD8321BA28EB581800CA74A1 /* SettingListViewController+Row.swift */,
 				BD8321B628EB501900CA74A1 /* SettingListViewController+Section.swift */,
+				BD8321BE28EB745400CA74A1 /* SettingListViewController+CellConfiguration.swift */,
 			);
 			path = SettingListViewController;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				BD0CAD9F28E1E3C6007D2EF7 /* ReminderViewController+Row.swift in Sources */,
 				BD0CADA628E23DF7007D2EF7 /* UIView+PinnedSubview.swift in Sources */,
 				BD8DBE3D28E7261800718F85 /* CAGradientLayer+ListStyle.swift in Sources */,
+				BD8321BF28EB745400CA74A1 /* SettingListViewController+CellConfiguration.swift in Sources */,
 				BD8DBE3928E617C200718F85 /* ProgressHeaderView.swift in Sources */,
 				BD0CADB028E38591007D2EF7 /* DatePickerContentView.swift in Sources */,
 				BD0CAD9928E1DAC7007D2EF7 /* ReminderListViewController+Actions.swift in Sources */,
@@ -438,7 +442,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanghun.JustThree;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -467,7 +471,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanghun.JustThree;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

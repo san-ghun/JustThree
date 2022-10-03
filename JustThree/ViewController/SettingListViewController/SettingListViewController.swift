@@ -28,20 +28,6 @@ class SettingListViewController: UICollectionViewController {
         collectionView.dataSource = dataSource
     }
     
-    func defaultConfiguration(for cell: UICollectionViewListCell, at row: Row) -> UIListContentConfiguration {
-        var contentConfig = cell.defaultContentConfiguration()
-        contentConfig.text = row.name
-        contentConfig.textProperties.font = UIFont.preferredFont(forTextStyle: row.textStyle)
-        contentConfig.image = row.image
-        return contentConfig
-    }
-    
-    func headerConfiguration(for cell: UICollectionViewListCell, with title: String) -> UIListContentConfiguration {
-        var contentConfig = cell.defaultContentConfiguration()
-        contentConfig.text = title
-        return contentConfig
-    }
-    
     private func listLayout() -> UICollectionViewCompositionalLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
         listConfiguration.showsSeparators = true
@@ -52,7 +38,7 @@ class SettingListViewController: UICollectionViewController {
     
 }
 
-/*
+
 extension SettingListViewController {
     /*
     // MARK: - Navigation
@@ -96,13 +82,38 @@ extension SettingListViewController {
     }
     */
 
-    /*
+    
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
+        print(indexPath.description)
+        
+        if indexPath.description == "[0, 2]" {
+            let support = "https://san-ghun.github.io/JustThree/"
+            if let url = URL(string: support) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        else if indexPath.description == "[0, 3]" {
+            let repository = "https://github.com/san-ghun/JustThree/"
+            if let url = URL(string: repository) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        else if indexPath.description == "[1, 1]" {
+            let email = "po4865@gmail.com"
+            if let url = URL(string: "mailto:\(email)") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        return false
+    }
+    
+    /*
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.description)
     }
     */
-
+    
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
@@ -119,4 +130,3 @@ extension SettingListViewController {
     */
 
 }
-*/

@@ -18,10 +18,11 @@ extension SettingListViewController {
             switch (section, row) {
             case (_, .header(let title)):
                 cell.contentConfiguration = self.headerConfiguration(for: cell, with: title)
-            case (_, _):
-                cell.contentConfiguration = self.defaultConfiguration(for: cell, at: row)
+            case (_, .version):
+                let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.9"
+                cell.contentConfiguration = self.versionConfiguration(for: cell, with: appVersion, at: row)
             default:
-                fatalError("Unexpected combination of section and row.")
+                cell.contentConfiguration = self.defaultConfiguration(for: cell, at: row)
             }
             cell.tintColor = .justThreePrimaryTint
         }
@@ -39,34 +40,36 @@ extension SettingListViewController {
     func updateSnapshot() {
         var snapshot = Snapshot()
         snapshot.appendSections([
-//            .general,
-            .themes,
+            //.general,
+            //.themes,
             .projectInfo,
-            .moreInfo
+            .moreInfo,
         ])
-        
-//        snapshot.appendItems([
-//            .header(Section.general.name),
-//            .dataSync
-//        ], toSection: .general)
+        /*
+        snapshot.appendItems([
+            .header(Section.general.name),
+            .dataSync,
+        ], toSection: .general)
         
         snapshot.appendItems([
             .header(Section.themes.name),
             .themeMode,
-//            .gradientSelection
+            .gradientSelection,
         ], toSection: .themes)
-        
+        */
         snapshot.appendItems([
             .header(Section.projectInfo.name),
             .description,
-//            .feedback,
-            .support
+            //.feedback,
+            .support,
+            .repository,
+            .version,
         ], toSection: .projectInfo)
         
         snapshot.appendItems([
             .header(Section.moreInfo.name),
             .contact,
-//            .buymeacoffee
+            //.buymeacoffee,
         ], toSection: .moreInfo)
         
         dataSource.apply(snapshot)
