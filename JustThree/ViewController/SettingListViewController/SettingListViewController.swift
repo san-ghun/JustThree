@@ -36,7 +36,7 @@ class SettingListViewController: UICollectionViewController {
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
     
-    func showDescription() {
+    private func showDescription() {
         let note: String = """
         \"JustThree\" is made for my own needs.
         
@@ -106,6 +106,11 @@ extension SettingListViewController {
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         let sectionNumber = indexPath.section
         
+        //Section: .general
+        
+        //Section: .themes
+        
+        //Section: .projectInfo
         if indexPath.description == "[\(sectionNumber), 1]" {
             showDescription()
         }
@@ -122,12 +127,14 @@ extension SettingListViewController {
             }
         }
         
+        //Section: .moreInfo
         else if indexPath.description == "[\(sectionNumber+1), 1]" {
             let email = "po4865@gmail.com"
             if let url = URL(string: "mailto:\(email)") {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
+        
         return false
     }
     

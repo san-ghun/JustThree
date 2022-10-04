@@ -24,7 +24,6 @@ class ProgressHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-//        progressView = ProgressAnimationView(frame: CGRect(origin: .zero, size: bounds.size))
         progressView = ProgressAnimationView(frame: CGRect(x: 0.0, y: 0.0, width: bounds.width, height: bounds.width))
         prepareSubviews()
         progressView.setupProgress(progressView.progress)
@@ -73,5 +72,13 @@ class ProgressHeaderView: UICollectionReusableView {
         
         backgroundColor = .clear
         containerView.backgroundColor = .clear
+    }
+    
+    func startProgressAnimation() {
+        progressView.setupProgress(progress)
+    }
+    
+    func stopProgressAnimation() {
+        progressView.suspendAnimation()
     }
 }

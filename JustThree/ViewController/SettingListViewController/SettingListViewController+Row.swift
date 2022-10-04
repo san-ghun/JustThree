@@ -13,6 +13,8 @@ extension SettingListViewController {
         
         //General
         case dataSync
+        case pageTransition
+        case singleWave
         
         //Themes
         case themeMode
@@ -32,6 +34,8 @@ extension SettingListViewController {
         var name: String {
             switch self {
             case .dataSync: return "Data Sync"
+            case .pageTransition: return "Page Transitioin"
+            case .singleWave: return "Show Single Wave line"
                 
             case .themeMode: return "Theme Mode"
             case .gradientSelection: return "Gradient Color"
@@ -52,6 +56,8 @@ extension SettingListViewController {
         var imageName: String? {
             switch self {
             case .dataSync: return "tray"
+            case .pageTransition: return "doc.on.doc"
+            case .singleWave: return "circle.bottomhalf.filled"
                 
             case .themeMode: return "circle.righthalf.filled"
             case .gradientSelection: return "paintpalette"
