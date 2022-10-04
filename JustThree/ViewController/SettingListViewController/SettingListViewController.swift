@@ -36,6 +36,25 @@ class SettingListViewController: UICollectionViewController {
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
     }
     
+    func showDescription() {
+        let note: String = """
+        \"JustThree\" is made for my own needs.
+        
+        I added too many reminders and todos everyday. And, I couldn't finish up everything, on most days. I needed to reduce or limit my reminders and todos, for my own good.
+        
+        With just three reminders and todos, I could improve my productivity and my focus. I no longer distracted or worry too much about the fear that I will not accomplish my day.
+        
+        I wish all the users, who use this little app, to be more happy, productive, and achieve.
+        
+        And for those users who are young and growing, might get distracted and lose focus frequently, keep up and stick to the most important just three things todo for your best today.
+        
+        Good Luck!
+        """
+        let reminder = Reminder(title: "Just Three - Description", dueDate: Date.now, notes: note, isComplete: false)
+        let viewController = ReminderViewController(reminder: reminder) { [weak self] reminder in }
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
 }
 
 
@@ -85,21 +104,25 @@ extension SettingListViewController {
     
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        print(indexPath.description)
+        let sectionNumber = indexPath.section
         
-        if indexPath.description == "[0, 2]" {
+        if indexPath.description == "[\(sectionNumber), 1]" {
+            showDescription()
+        }
+        else if indexPath.description == "[\(sectionNumber), 2]" {
             let support = "https://san-ghun.github.io/JustThree/"
             if let url = URL(string: support) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
-        else if indexPath.description == "[0, 3]" {
+        else if indexPath.description == "[\(sectionNumber), 3]" {
             let repository = "https://github.com/san-ghun/JustThree/"
             if let url = URL(string: repository) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
-        else if indexPath.description == "[1, 1]" {
+        
+        else if indexPath.description == "[\(sectionNumber+1), 1]" {
             let email = "po4865@gmail.com"
             if let url = URL(string: "mailto:\(email)") {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)

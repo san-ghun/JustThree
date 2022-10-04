@@ -32,8 +32,8 @@ class MainTabBarViewController: UITabBarController {
         
 //        vc1.title = "Just"
 //        vc2.title = "Three"
-        vc3.title = "JustThree"
-        vc4.title = "Setting"
+//        vc3.title = "JustThree"
+//        vc4.title = "Setting"
         
         vcArray = [
 //            vc1,
