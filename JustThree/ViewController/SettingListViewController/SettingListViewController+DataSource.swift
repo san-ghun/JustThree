@@ -49,6 +49,8 @@ extension SettingListViewController {
         snapshot.appendItems([
             .header(Section.general.name),
             //.dataSync,
+            //.pageTransition,
+            //.singleWave,
         ], toSection: .general)
         
         snapshot.appendItems([
