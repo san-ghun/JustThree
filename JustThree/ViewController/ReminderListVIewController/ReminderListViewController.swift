@@ -67,6 +67,12 @@ class ReminderListViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         refreshBackground()
         refreshAddButton()
+        headerView?.startProgressAnimation()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        headerView?.stopProgressAnimation()
     }
     
     func refreshAddButton() {
@@ -135,6 +141,9 @@ extension ReminderListViewController {
 
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        
+        headerView?.stopProgressAnimation()
+        
         let id = filteredReminders[indexPath.item].id
         showDetail(for: id)
         return false

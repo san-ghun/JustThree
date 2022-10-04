@@ -109,9 +109,28 @@ class ProgressAnimationView: UIView {
         }
     }
     
+    func suspendAnimation() {
+        let top: CGFloat = bounds.size.height * 0.025
+        firstLayer.setValue(bounds.width - top, forKeyPath: "position.y")
+        secondLayer.setValue(bounds.width - top, forKeyPath: "position.y")
+        
+        if start {
+            DispatchQueue.main.async {
+                self.stopAnim()
+            }            
+        }
+    }
+    
     private func startAnim() {
         start = true
         waterWaveAnim()
+    }
+    
+    private func stopAnim() {
+        start = false
+        
+        firstLayer.removeAllAnimations()
+        secondLayer.removeAllAnimations()
     }
     
     private func waterWaveAnim() {
