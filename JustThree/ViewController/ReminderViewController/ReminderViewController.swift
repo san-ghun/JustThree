@@ -40,7 +40,7 @@ class ReminderViewController: UICollectionViewController {
         navigationItem.title = NSLocalizedString("Reminder", comment: "Reminder view controller title")
         navigationItem.rightBarButtonItem = editButtonItem
         
-        tabBarController?.tabBar.isHidden.toggle()
+        tabBarController?.tabBar.isHidden = true
         
         updateSnapshotForViewing()
     }

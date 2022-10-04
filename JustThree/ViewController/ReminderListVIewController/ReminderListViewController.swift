@@ -56,6 +56,8 @@ class ReminderListViewController: UICollectionViewController {
         listStyleSegmentedControl.addTarget(self, action: #selector(didChangeListStyle(_:)), for: .valueChanged)
         navigationItem.titleView = listStyleSegmentedControl
         
+        tabBarController?.tabBar.isHidden = false
+        
         updateSnapshot()
         
         collectionView.dataSource = dataSource
