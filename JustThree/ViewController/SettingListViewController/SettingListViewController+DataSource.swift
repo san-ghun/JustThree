@@ -43,18 +43,18 @@ extension SettingListViewController {
             //.general,
             //.themes,
             .projectInfo,
-            .moreInfo,
+            //.moreInfo,
         ])
         /*
         snapshot.appendItems([
             .header(Section.general.name),
-            .dataSync,
+            //.dataSync,
         ], toSection: .general)
         
         snapshot.appendItems([
             .header(Section.themes.name),
-            .themeMode,
-            .gradientSelection,
+            //.themeMode,
+            //.gradientSelection,
         ], toSection: .themes)
         */
         snapshot.appendItems([
@@ -65,13 +65,13 @@ extension SettingListViewController {
             .repository,
             .version,
         ], toSection: .projectInfo)
-        
+        /*
         snapshot.appendItems([
             .header(Section.moreInfo.name),
-            .contact,
+            //.contact,
             //.buymeacoffee,
         ], toSection: .moreInfo)
-        
+        */
         dataSource.apply(snapshot)
     }
     
