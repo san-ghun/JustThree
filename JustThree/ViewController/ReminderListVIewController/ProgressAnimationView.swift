@@ -53,7 +53,7 @@ class ProgressAnimationView: UIView {
     */
 
     //MARK: - Methods
-    func setupViews() {
+    private func setupViews() {
 //        bounds = CGRect(x: xAxis, y: yAxis, width: width, height: width)
         clipsToBounds = true
         backgroundColor = .clear

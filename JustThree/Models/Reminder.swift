@@ -28,7 +28,11 @@ class Reminders {
     static let shared: Reminders = Reminders()
     let saveKey = "com.sanghun.JustThree.SavedData"
     
-    var reminders: [Reminder]
+    var reminders: [Reminder] = [] {
+        didSet {
+            Reminders.shared.save()
+        }
+    }
     
     init() {
         if let data = UserDefaults.standard.data(forKey: saveKey) {
@@ -40,7 +44,7 @@ class Reminders {
         reminders = []
     }
     
-    func save() {
+    private func save() {
         if let encoded = try? JSONEncoder().encode(reminders) {
             UserDefaults.standard.set(encoded, forKey: saveKey)
         }

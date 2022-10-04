@@ -13,7 +13,6 @@ class ReminderListViewController: UICollectionViewController {
     var reminders: [Reminder] = [] {
         didSet {
             Reminders.shared.reminders = reminders
-            Reminders.shared.save()
         }
     }
     
@@ -47,6 +46,7 @@ class ReminderListViewController: UICollectionViewController {
         
         reminders = Reminders.shared.reminders
         
+        collectionView.delegate = self
         collectionView.backgroundColor = .secondarySystemBackground
 
         let listLayout = listLayout()
@@ -95,13 +95,13 @@ class ReminderListViewController: UICollectionViewController {
         collectionView.backgroundView = backgroundView
     }
     
-    func showDetail(for id: Reminder.ID) {
+    private func showDetail(for id: Reminder.ID) {
         let reminder = reminder(for: id)
         let viewController = ReminderViewController(reminder: reminder) { [weak self] reminder in
             self?.update(reminder, with: reminder.id)
             self?.updateSnapshot(reloading: [reminder.id])
         }
-        navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: false)
     }
     
     private func listLayout() -> UICollectionViewCompositionalLayout {
@@ -141,9 +141,6 @@ extension ReminderListViewController {
 
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        
-        headerView?.stopProgressAnimation()
-        
         let id = filteredReminders[indexPath.item].id
         showDetail(for: id)
         return false
