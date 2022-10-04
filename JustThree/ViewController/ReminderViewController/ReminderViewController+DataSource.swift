@@ -12,20 +12,20 @@ extension ReminderViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
     
     private func cellRegistration() -> UICollectionView.CellRegistration<UICollectionViewListCell, Row> {
-        return .init { (cell: UICollectionViewListCell, indexPath: IndexPath, row: Row) in
+        return .init { [weak self] (cell: UICollectionViewListCell, indexPath: IndexPath, row: Row) in
             
-            let section = self.section(for: indexPath)
+            let section = self?.section(for: indexPath)
             switch (section, row) {
             case (_, .header(let title)):
-                cell.contentConfiguration = self.headerConfiguration(for: cell, with: title)
+                cell.contentConfiguration = self?.headerConfiguration(for: cell, with: title)
             case (.view, _):
-                cell.contentConfiguration = self.defaultConfiguration(for: cell, at: row)
+                cell.contentConfiguration = self?.defaultConfiguration(for: cell, at: row)
             case (.title, .editText(let title)):
-                cell.contentConfiguration = self.titleConfiguration(for: cell, with: title)
+                cell.contentConfiguration = self?.titleConfiguration(for: cell, with: title)
             case (.date, .editDate(let date)):
-                cell.contentConfiguration = self.dateConfiguration(for: cell, with: date)
+                cell.contentConfiguration = self?.dateConfiguration(for: cell, with: date)
             case (.notes, .editText(let notes)):
-                cell.contentConfiguration = self.notesConfiguration(for: cell, with: notes)
+                cell.contentConfiguration = self?.notesConfiguration(for: cell, with: notes)
             default:
                 fatalError("Unexpected combination of section and row.")
             }
