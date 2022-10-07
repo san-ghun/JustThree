@@ -154,6 +154,7 @@
 				BD9EC96128DE4B6B00B803D7 /* README.md */,
 				BD9EC94C28DE478300B803D7 /* JustThree */,
 				BD9EC94B28DE478300B803D7 /* Products */,
+				BDADCF7B28EDB917009A51B2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,6 +191,13 @@
 				BD8DBE3C28E7261800718F85 /* CAGradientLayer+ListStyle.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		BDADCF7B28EDB917009A51B2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
